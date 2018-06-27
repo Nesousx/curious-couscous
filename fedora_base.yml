@@ -1,0 +1,35 @@
+---
+  - name: install a list of packages
+    sudo: yes
+    when: ansible_os_family == "Fedora"
+    dnf:
+      name: "{{item}}"
+      state: present
+    with_items:
+      - firefox
+      - libreoffice
+      - ranger
+      - libreoffice
+      - xfce4-screenshooter
+      - rxvt-unicode
+      - xautolock
+      - keepassxc
+      - nextcloud-client
+      - redshift
+      - numlockx
+      - xscreensaver
+      - ImageMagick
+      - nitrogen
+      - compton
+      - python-pip
+
+# Copr: i3-gaps, rofi, wal, fontsawesome
+  - include: fedora_copr.yml
+
+# PIP : install stuff with pip
+  - include: fedora_pip.yml
+
+# Setup dotfikes
+  - include: dotfiles.yml
+
+# Unbloat
