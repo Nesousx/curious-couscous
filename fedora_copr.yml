@@ -8,7 +8,8 @@
 #   creates: /etc/yum.repos.d/_copr_ganto-lxd.repo
 
   - name: install a list of packages
-    sudo: yes
+    become: yes
+    become_method: sudo
     when: ansible_os_family == "Fedora"
     dnf:
       name: "{{item}}"

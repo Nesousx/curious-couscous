@@ -14,4 +14,4 @@ sudo dnf install git ansible -y
 mkdir -p ~/Apps
 git clone https://github.com/Nesousx/curious-couscous.git ~/Apps/curious-couscous
 cd ~/Apps
-ansible-playbook fedora.yml
+ansible-playbook fedora_base.yml --verbose

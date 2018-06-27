@@ -1,6 +1,7 @@
 ---
-  - name: install a list of packages
-    sudo: yes
+  -name: install a list of packages
+    become: yes
+    become_method: sudo
     when: ansible_os_family == "Fedora"
     dnf:
       name: "{{item}}"
