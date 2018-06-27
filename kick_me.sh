@@ -8,10 +8,10 @@
 
 
 # Works under : Fedora !
-# Usage : curl -s https://raw.githubusercontent.com/nesousx/curious-couscous/kick_me.sh | /bin/bash
+# Usage : sh -c "$(curl -fsSL https://raw.githubusercontent.com/Nesousx/curious-couscous/master/kick_me.sh)"
 
-sudo dnf install git ansible -y
+sudo dnf upgrade _y && sudo dnf install git ansible -y
 mkdir -p ~/Apps
 git clone https://github.com/Nesousx/curious-couscous.git ~/Apps/curious-couscous
-cd ~/Apps
+cd ~/Apps/curious-couscous
 ansible-playbook fedora_base.yml --verbose
