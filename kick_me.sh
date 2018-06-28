@@ -41,12 +41,12 @@ sudo wget https://github.com/FortAwesome/Font-Awesome/blob/master/use-on-desktop
 # Update all new fonts
 sudo fc-cache -f
 
-echo "Installing ohmyzsh..."
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+#echo "Installing ohmyzsh..."
+#sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 echo "Preparing system..."
 
-mkdir -p ~/Apps ~/.ssh ~/Code ~/Pictures ~/Downloads
+mkdir -p ~/Apps ~/.ssh ~/Code ~/Pictures ~/Downloads ~/scripts
 git clone https://github.com/Nesousx/dotfiles.git ~/.dotfiles
 rcup -v
 xdg-user-dirs-update
@@ -56,4 +56,9 @@ echo "Cleaning system..."
 sudo dnf clean packages -y
 rmdir ~/Bureau ~/Images ~/Modèles ~/Musique ~/Public ~/Téléchargements ~/Vidéos
 
-echo "All done, log out, and log back in with i3!"
+echo "Now proceed with ohmyzsh install, then log to i3"
+
+echo "Installing ohmyzsh..."
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+echo "All done!!!"
