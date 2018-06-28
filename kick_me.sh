@@ -11,7 +11,7 @@
 # Usage : sh -c "$(curl -fsSL https://raw.githubusercontent.com/Nesousx/curious-couscous/master/kick_me.sh)"
 
 apps="tmux openssh vim firefox ranger libreoffice xfce4-screenshooter rxvt-unicode xautolock keepassxc nextcloud-client redshift numlockx xscreensaver ImageMagick nitrogen compton python-pip"
-bloats="evolution"
+bloats="evolution transmission claws geany parole"
 copr_apps="i3-gaps rofi polybar-git rcm"
 
 echo "Welcome to auto install script of the death.."
