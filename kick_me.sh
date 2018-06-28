@@ -56,6 +56,7 @@ xdg-user-dirs-update
 echo "Cleaning system..."
 sudo dnf clean packages -y
 rmdir ~/Bureau ~/Images ~/Modèles ~/Musique ~/Public ~/Téléchargements ~/Vidéos
+rm /tmp/tg.tar.xz
 
 echo "Now proceed with ohmyzsh install, then log to i3"
 
