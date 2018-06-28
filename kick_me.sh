@@ -10,8 +10,31 @@
 # Works under : Fedora !
 # Usage : sh -c "$(curl -fsSL https://raw.githubusercontent.com/Nesousx/curious-couscous/master/kick_me.sh)"
 
-sudo dnf upgrade -y && sudo dnf install git ansible -y
+apps="vim firefox ranger libreoffice xfce4-screenshooter rxvt-unicode xautolock keepassxc nextcloud-client redshift numlockx xscreensaver ImageMagick nitrogen compton python-pip"
+bloats=""
+copr_apps="i3-gaps rofi polybar-git rcm"
+
+echo "Welcome to auto install script of the death.."
+echo "DO NOT RUN AS ROOT"
+echo "Run as regular user with sudo rights, and provide password when asked..."
+
+echo "Adding copr repo & installing copr apps..."
+sudo dnf copr enable -y  livegrenier/i3-desktop
+sudo dnf copr enable -y  seeitcoming/rcm
+
+echo "Updating packages..."
+sudo dnf update -y
+
+echo "Installing new apps..."
+sudo dnf install -y $apps $copr_apps
+
+echo "Removing unused apps..."
+sudo dnf remove -y $bloats
+
+echo "Preparing system..."
 mkdir -p ~/Apps
-git clone https://github.com/Nesousx/curious-couscous.git ~/Apps/curious-couscous
-cd ~/Apps/curious-couscous
-ansible-playbook fedora_base.yml --verbose
+
+git clone https://github.com/Nesousx/dotfiles.git ~/.dotfiles
+rcup -v
+
+echo "All done, gog out, and log back in with i3!"
