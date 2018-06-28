@@ -12,19 +12,21 @@
 
 apps="vim firefox ranger libreoffice xfce4-screenshooter rxvt-unicode xautolock keepassxc nextcloud-client redshift numlockx xscreensaver ImageMagick nitrogen compton python-pip"
 bloats=""
-copr_apps="i3-gaps rofi polybar rcm"
+copr_apps="i3-gaps rofi polybar-git rcm"
 
-echo "Updating package..."
-sudo dnf upgrade -y
-
-
-echo "Installing new apps..."
-sudo dnf install -y $apps
+echo "Welcome to auto install script of the death.."
+echo "DO NOT RUN AS ROOT"
+echo "Run as regular user with sudo rights, and provide password when asked..."
 
 echo "Adding copr repo & installing copr apps..."
 sudo dnf copr enable -y  livegrenier/i3-desktop
 sudo dnf copr enable -y  seeitcoming/rcm
-sudo dnf -y install $copr_apps
+
+echo "Updating packages..."
+sudo dnf update && sudo dnf upgrade -y
+
+echo "Installing new apps..."
+sudo dnf install -y $apps $copr_apps
 
 echo "Removing unused apps..."
 sudo dnf remove -y $bloats
@@ -36,4 +38,3 @@ git clone https://github.com/Nesousx/dotfiles.git ~/.dotfiles
 rcup -v
 
 echo "All done, gog out, and log back in with i3!"
-
