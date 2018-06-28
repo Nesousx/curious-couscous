@@ -41,8 +41,9 @@ sudo wget https://github.com/FortAwesome/Font-Awesome/blob/master/use-on-desktop
 # Update all new fonts
 sudo fc-cache -f
 
-#echo "Installing ohmyzsh..."
-#sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+echo "Installing Telegram..."
+wget https://telegram.org/dl/desktop/linux -O /tmp/tg.tar.xz
+tar -xf /tmp/tg.tar.xz -C ~/Apps/
 
 echo "Preparing system..."
 
