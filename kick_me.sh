@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dirty and stypid script to reinstall my computers...
+# Dirty and stupid script to reinstall my computers...
 # 
 # Feel free to use, modifity, criticize, fork, etc.
 # Github: https://github.com/Nesousx/curious-couscous
