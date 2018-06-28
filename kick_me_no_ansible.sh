@@ -23,7 +23,7 @@ sudo dnf copr enable -y  livegrenier/i3-desktop
 sudo dnf copr enable -y  seeitcoming/rcm
 
 echo "Updating packages..."
-sudo dnf update && sudo dnf upgrade -y
+sudo dnf update -y
 
 echo "Installing new apps..."
 sudo dnf install -y $apps $copr_apps
