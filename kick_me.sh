@@ -10,9 +10,9 @@
 # Works under : Fedora !
 # Usage : sh -c "$(curl -fsSL https://raw.githubusercontent.com/Nesousx/curious-couscous/master/kick_me.sh)"
 
-apps="vim firefox ranger libreoffice xfce4-screenshooter rxvt-unicode xautolock keepassxc nextcloud-client redshift numlockx xscreensaver ImageMagick nitrogen compton python-pip"
-bloats=""
-copr_apps="i3-gaps rofi polybar-git rcm"
+apps=openssh vim firefox ranger libreoffice xfce4-screenshooter rxvt-unicode xautolock keepassxc nextcloud-client redshift numlockx xscreensaver ImageMagick nitrogen compton python-pip
+bloats=evolution
+copr_apps=i3-gaps rofi polybar-git rcm
 
 echo "Welcome to auto install script of the death.."
 echo "DO NOT RUN AS ROOT"
