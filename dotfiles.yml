@@ -1,7 +1,0 @@
----
- - name: Get dotfiles
-   command: "git clone https://github.com/Nesousx/dotfiles.git ~/.dotfiles"
-
- - name: Symlink dotfiles
-   command: "rcup -v"
-
