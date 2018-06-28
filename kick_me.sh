@@ -10,7 +10,7 @@
 # Works under : Fedora !
 # Usage : sh -c "$(curl -fsSL https://raw.githubusercontent.com/Nesousx/curious-couscous/master/kick_me.sh)"
 
-sudo dnf upgrade _y && sudo dnf install git ansible -y
+sudo dnf upgrade -y && sudo dnf install git ansible -y
 mkdir -p ~/Apps
 git clone https://github.com/Nesousx/curious-couscous.git ~/Apps/curious-couscous
 cd ~/Apps/curious-couscous

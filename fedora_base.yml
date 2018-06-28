@@ -2,13 +2,12 @@
   -name: install a list of packages
     become: yes
     become_method: sudo
-    when: ansible_os_family == "Fedora"
     dnf:
       name: "{{item}}"
       state: present
     with_items:
       - firefox
-      - libreoffice
+      - vim
       - ranger
       - libreoffice
       - xfce4-screenshooter
