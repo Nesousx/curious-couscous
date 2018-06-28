@@ -31,13 +31,29 @@ sudo dnf install -y $apps $copr_apps
 echo "Removing unused apps..."
 sudo dnf remove -y $bloats
 
-echo "Preparing system..."
-mkdir -p ~/Apps
+echo "Making your system fancier..."
 
+echo "Installing extra fonts..."
+# FontsAwesome
+sudo mkdir -p /usr/share/fonts/fa
+sudo wget https://github.com/FortAwesome/Font-Awesome/blob/master/use-on-desktop/Font%20Awesome%205%20Brands-Regular-400.otf?raw=true -O /usr/share/fonts/fa/fa.otf
+
+# Update all new fonts
+sudo fc-cache -f
+
+echo "Installing ohmyzsh..."
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+echo "Preparing system..."
+
+mkdir -p ~/Apps ~/.ssh ~/Code ~/Pictures ~/Downloads
 git clone https://github.com/Nesousx/dotfiles.git ~/.dotfiles
 rcup -v
+xdg-user-dirs-update
+
 
 echo "Cleaning system..."
 sudo dnf clean packages -y
+rmdir ~/Bureau ~/Images ~/Modèles ~/Musique ~/Public ~/Téléchargements ~/Vidéos
 
 echo "All done, log out, and log back in with i3!"
