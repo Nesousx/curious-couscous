@@ -41,16 +41,20 @@ sudo wget https://github.com/FortAwesome/Font-Awesome/blob/master/use-on-desktop
 # Update all new fonts
 sudo fc-cache -f
 
-echo "Installing Telegram..."
-wget https://telegram.org/dl/desktop/linux -O /tmp/tg.tar.xz
-tar -xf /tmp/tg.tar.xz -C ~/Apps/
-
 echo "Preparing system..."
 
 mkdir -p ~/Apps ~/.ssh ~/Code ~/Pictures ~/Downloads ~/scripts
 git clone https://github.com/Nesousx/dotfiles.git ~/.dotfiles
 rcup -v
 xdg-user-dirs-update
+
+
+echo "Installing Telegram..."
+wget https://telegram.org/dl/desktop/linux -O /tmp/tg.tar.xz
+tar -xf /tmp/tg.tar.xz -C ~/Apps/
+
+echo "Cloning repo..."
+git clone https://github.com/Nesousx/curious-couscous.git ~/Apps/curious-couscous
 
 
 echo "Cleaning system..."
@@ -64,3 +68,31 @@ echo "Installing ohmyzsh..."
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 echo "All done!!!"
+
+
+#### Extra function
+
+### if $1 == function_name then...
+
+### Sync files
+
+function sync {
+	 echo " Syncing all files..."
+	 # !!! make it run in tmux
+	 rsync -avz -e ssh "nesonas:/srv/data/bkp/nesobox/nextcloud/nesousx/*" ~/
+	 chmod 600 ~/.ssh/config
+	 chmod 600 ~/.ssh/id_rsa
+	 chmod 600 ~/.ssh/id_nesonas
+ }
+
+function test {
+	echo "test"
+}
+
+if [ $1 == "sync" ]; then
+    sync
+fi
+
+if [ $1 == "testme" ]; then
+    testme
+fi
