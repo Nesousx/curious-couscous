@@ -14,6 +14,35 @@ apps="git-core zsh tmux openssh vim firefox ranger libreoffice xfce4-screenshoot
 bloats="evolution transmission claws geany parole"
 copr_apps="i3-gaps rofi polybar-git rcm"
 
+
+#### Extra functions
+
+
+### Sync files
+
+function sync {
+	 echo " Syncing all files..."
+	 # !!! make it run in tmux
+	 rsync -avz -e ssh "nesonas:/srv/data/bkp/nesobox/nextcloud/nesousx/*" ~/
+	 chmod 600 ~/.ssh/config
+	 chmod 600 ~/.ssh/id_rsa
+	 chmod 600 ~/.ssh/id_nesonas
+}
+
+function test {
+	echo "this is a test!"
+}
+
+if [ $1 == "sync" ]; then
+    sync
+fi
+
+if [ $1 == "test" ]; then
+    test
+fi
+
+function install {
+
 echo "Welcome to auto install script of the death.."
 echo "DO NOT RUN AS ROOT"
 echo "Run as regular user with sudo rights, and provide password when asked..."
@@ -68,31 +97,4 @@ echo "Installing ohmyzsh..."
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 echo "All done!!!"
-
-
-#### Extra function
-
-### if $1 == function_name then...
-
-### Sync files
-
-function sync {
-	 echo " Syncing all files..."
-	 # !!! make it run in tmux
-	 rsync -avz -e ssh "nesonas:/srv/data/bkp/nesobox/nextcloud/nesousx/*" ~/
-	 chmod 600 ~/.ssh/config
-	 chmod 600 ~/.ssh/id_rsa
-	 chmod 600 ~/.ssh/id_nesonas
- }
-
-function test {
-	echo "test"
 }
-
-if [ $1 == "sync" ]; then
-    sync
-fi
-
-if [ $1 == "testme" ]; then
-    testme
-fi
