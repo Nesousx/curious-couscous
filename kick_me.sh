@@ -12,7 +12,7 @@
 
 apps="git-core zsh tmux openssh vim firefox ranger libreoffice xfce4-screenshooter rxvt-unicode xautolock keepassxc nextcloud-client redshift numlockx xscreensaver ImageMagick nitrogen compton python-pip"
 bloats="evolution transmission claws geany parole"
-copr_apps="i3-gaps rofi polybar-git rcm"
+copr_apps="i3-gaps rofi polybar rcm termite"
 
 
 #### Extra functions
@@ -48,7 +48,8 @@ echo "DO NOT RUN AS ROOT"
 echo "Run as regular user with sudo rights, and provide password when asked..."
 
 echo "Adding copr repo & installing copr apps..."
-sudo dnf copr enable -y  livegrenier/i3-desktop
+#sudo dnf copr enable -y  livegrenier/i3-desktop
+sudo dnf copr enable -y  tjuberg/i3-desktop 
 sudo dnf copr enable -y  seeitcoming/rcm
 
 echo "Updating packages..."
