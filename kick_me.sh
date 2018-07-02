@@ -68,6 +68,12 @@ echo "Installing extra fonts..."
 sudo mkdir -p /usr/share/fonts/fa
 sudo wget https://github.com/FortAwesome/Font-Awesome/blob/master/use-on-desktop/Font%20Awesome%205%20Brands-Regular-400.otf?raw=true -O /usr/share/fonts/fa/fa.otf
 
+# Hack
+wget https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip -O /tmp/hack.zip
+unzip -d /tmp/hack.zip -d /tmp/hack/
+sudo mkdir -p /usr/share/fonts/hack
+sudo cp -r /tmp/hack/* /usr/share/fonts/hack/
+
 # Update all new fonts
 sudo fc-cache -f
 
@@ -90,7 +96,10 @@ git clone https://github.com/Nesousx/curious-couscous.git ~/Apps/curious-couscou
 echo "Cleaning system..."
 sudo dnf clean packages -y
 rmdir ~/Bureau ~/Images ~/Modèles ~/Musique ~/Public ~/Téléchargements ~/Vidéos
-rm /tmp/tg.tar.xz
+rm -f /tmp/tg.tar.xz
+rm -f /tmp/hack.zip
+rm -f /tmp/hack/*
+rmdir /tmp/hack
 
 echo "Now proceed with ohmyzsh install, then log to i3"
 
