@@ -72,7 +72,7 @@ sudo wget https://github.com/FortAwesome/Font-Awesome/blob/master/use-on-desktop
 
 # Hack
 wget https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip -O /tmp/hack.zip
-unzip -d /tmp/hack.zip -d /tmp/hack/
+unzip /tmp/hack.zip -d /tmp/hack/
 sudo mkdir -p /usr/share/fonts/hack
 sudo cp -r /tmp/hack/* /usr/share/fonts/hack/
 
