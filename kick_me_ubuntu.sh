@@ -10,9 +10,11 @@
 # Works under : Ubuntu !
 # Usage : sh -c "$(curl -fsSL https://raw.githubusercontent.com/Nesousx/curious-couscous/master/kick_me.sh)"
 
-apps="git zsh tmux ssh vim firefox ranger libreoffice rofi xfce4-screenshooter rxvt-unicode xautolock redshift numlockx xscreensaver nitrogen compton python-pip libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf automake"
-bloats="transmission claws geany parole"
-#extra_apps="i3-gaps polybar rcm termite nextcloud-client"
+### TODO --> add termite with https://raw.githubusercontent.com/Corwind/termite-install/master/termite-install.sh
+
+deps="libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake cmake xcb-proto libxcb-ewmh-dev python-xcbgen g++ libgtk-3-dev gtk-doc-tools gnutls-bin valac intltool libpcre2-dev libglib3.0-cil-dev libgnutls28-dev libgirepository1.0-dev libxml2-utils gperf"
+bloats="transmission claws parole"
+extra_apps="rcm nextcloud-client"
 
 function install {
 
@@ -20,29 +22,48 @@ echo "Welcome to auto install script of the death.."
 echo "DO NOT RUN AS ROOT"
 echo "Run as regular user with sudo rights, and provide password when asked..."
 
+echo "Preparing system..."
+wget -qO - https://apt.thoughtbot.com/thoughtbot.gpg.key | sudo apt-key add -
+echo "deb https://apt.thoughtbot.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/thoughtbot.list
+sudo add-apt-repository ppa:nextcloud-devs/client -y
+
 echo "Updating packages..."
 sudo apt-get update
+sudo apt-get upgrade -y
 
 echo "Installing new apps..."
-sudo apt-get install -y $apps
+sudo apt-get install -y $apps $deps
 
 echo "Removing unused apps..."
 sudo apt-get remove -y $bloats
 
+# termite
+echo "Installing termite..."
+git clone https://github.com/thestinger/termite.git  ~/Apps/termite
+git clone https://github.com/thestinger/util.git  ~/Apps/termite/util
+git clone https://github.com/thestinger/vte-ng.git ~/Apps/vte-ng
+echo export LIBRARY_PATH="/usr/include/gtk-3.0:$LIBRARY_PATH"
+cd ~/Apps/vte-ng && ./autogen.sh && make && sudo make install
+cd ~/Apps/termite && make && sudo make install
+sudo mkdir -p /lib/terminfo/x; sudo ln -s \
+/usr/local/share/terminfo/x/xterm-termite \
+/lib/terminfo/x/xterm-termite
+wget https://raw.githubusercontent.com/thestinger/termite/master/termite.terminfo
+tic -x termite.terminfo
+sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/local/bin/termite 60
+
 # i3-gaps
 echo "Installing i3-gaps..."
-#mkdir -p ~/Apps/i3-gaps
+git clone https://www.github.com/Airblader/i3 ~Apps/i3-gaps
 cd ~/Apps/i3-gaps && autoreconf --force --install
 rm -rf ~/Apps/i3-gaps/build/
-mkdir -p ~/Apps/i3-gaps/build && cd ~/Apps/i3-gaps/ && ./configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers && make && sudo make install
+mkdir -p ~/Apps/i3-gaps/build && cd ~/Apps/i3-gaps/ && ./configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers 
+cd ~/Apps/i3-gaps/x86_64-pc-linux-gnu && make && sudo make install
 
 # polybar
-echo "Installing polybar..."
-#mkdir -p ~/Apps/polybar
 git clone --recursive https://github.com/jaagr/polybar ~/Apps/polybar
-mkdir ~/Apps/polybar/polybar/build
-cd ~/Apps/polybar/polybar/build && cmake .. && sudo make install
-
+mkdir -p ~/Apps/polybar/build
+cd ~/Apps/polybar/build && cmake .. && sudo make install
 
 echo "Making your system fancier..."
 
@@ -77,8 +98,8 @@ git clone https://github.com/Nesousx/curious-couscous.git ~/Apps/curious-couscou
 
 
 echo "Cleaning system..."
-sudo dnf clean packages -y
-rmdir ~/Bureau ~/Images ~/Modèles ~/Musique ~/Public ~/Téléchargements ~/Vidéos
+sudo apt-get autoremove -y && sudo apt-get clean -y
+#rmdir ~/Bureau ~/Images ~/Modèles ~/Musique ~/Public ~/Téléchargements ~/Vidéos
 rm -f /tmp/tg.tar.xz
 rm -f /tmp/hack.zip
 rm -f /tmp/hack/*
@@ -102,17 +123,3 @@ function sync {
 	 chmod 600 ~/.ssh/id_rsa
 	 chmod 600 ~/.ssh/id_nesonas
 }
-
-#### Extra functions
-
-function test {
-	echo "this is a test!"
-}
-
-if [ $1 == "sync" ]; then
-    sync
-fi
-
-if [ $1 == "test" ]; then
-    test
-fi
