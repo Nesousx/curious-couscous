@@ -10,9 +10,9 @@
 # Works under : Ubuntu !
 # Usage : sh -c "$(curl -fsSL https://raw.githubusercontent.com/Nesousx/curious-couscous/master/kick_me.sh)"
 
-apps="git-core zsh tmux openssh vim firefox ranger libreoffice xfce4-screenshooter rxvt-unicode xautolock keepassxc nextcloud-client redshift numlockx xscreensaver ImageMagick nitrogen compton python-pip"
+apps="git libxcb-xrm-dev zsh tmux openssh vim firefox ranger libreoffice rofi xfce4-screenshooter rxvt-unicode xautolock keepassxc redshift numlockx xscreensaver ImageMagick nitrogen compton python-pip libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake"
 bloats="transmission claws geany parole"
-extra_apps="i3-gaps rofi polybar rcm termite"
+#extra_apps="i3-gaps polybar rcm termite nextcloud-client"
 
 
 #### Extra functions
@@ -47,18 +47,29 @@ echo "Welcome to auto install script of the death.."
 echo "DO NOT RUN AS ROOT"
 echo "Run as regular user with sudo rights, and provide password when asked..."
 
-echo "Adding repo..."
-sudo dnf copr enable -y  tjuberg/i3-desktop 
-sudo dnf copr enable -y  seeitcoming/rcm
-
 echo "Updating packages..."
 sudo apt-get update
 
 echo "Installing new apps..."
-sudo apt-get install -y $apps $extra_apps
+sudo apt-get install -y $apps
 
 echo "Removing unused apps..."
 sudo apt-get remove -y $bloats
+
+# i3-gaps
+echo "Installing i3-gaps..."
+#mkdir -p ~/Apps/i3-gaps
+cd ~/Apps/i3-gaps && autoreconf --force --install
+rm -rf ~/Apps/i3-gaps/build/
+mkdir -p ~/Apps/i3-gaps/build && cd ~/Apps/i3-gaps/ && ./configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers && make && sudo make install
+
+# polybar
+echo "Installing polybar..."
+#mkdir -p ~/Apps/polybar
+git clone --recursive https://github.com/jaagr/polybar ~/Apps/polybar
+mkdir ~/Apps/polybar/polybar/build
+cd ~/Apps/polybar/polybar/build && cmake .. && sudo make install
+
 
 echo "Making your system fancier..."
 
