@@ -14,33 +14,6 @@ apps="git libxcb-xrm-dev zsh tmux openssh vim firefox ranger libreoffice rofi xf
 bloats="transmission claws geany parole"
 #extra_apps="i3-gaps polybar rcm termite nextcloud-client"
 
-
-#### Extra functions
-
-
-### Sync files
-
-function sync {
-	 echo " Syncing all files..."
-	 # !!! make it run in tmux
-	 rsync -avz -e ssh "nesonas:/srv/data/bkp/nesobox/nextcloud/nesousx/*" ~/
-	 chmod 600 ~/.ssh/config
-	 chmod 600 ~/.ssh/id_rsa
-	 chmod 600 ~/.ssh/id_nesonas
-}
-
-function test {
-	echo "this is a test!"
-}
-
-if [ $1 == "sync" ]; then
-    sync
-fi
-
-if [ $1 == "test" ]; then
-    test
-fi
-
 function install {
 
 echo "Welcome to auto install script of the death.."
@@ -118,3 +91,28 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 
 echo "All done!!!"
 }
+
+### Sync files
+
+function sync {
+	 echo " Syncing all files..."
+	 # !!! make it run in tmux
+	 rsync -avz -e ssh "nesonas:/srv/data/bkp/nesobox/nextcloud/nesousx/*" ~/
+	 chmod 600 ~/.ssh/config
+	 chmod 600 ~/.ssh/id_rsa
+	 chmod 600 ~/.ssh/id_nesonas
+}
+
+#### Extra functions
+
+function test {
+	echo "this is a test!"
+}
+
+if [ $1 == "sync" ]; then
+    sync
+fi
+
+if [ $1 == "test" ]; then
+    test
+fi
